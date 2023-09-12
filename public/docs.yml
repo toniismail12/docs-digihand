@@ -6,10 +6,6 @@ info:
 servers:
   - url: http://localhost:9001
     description: API Local
-  - url: https://gwkong.pusri.co.id/digital-handbook-dev
-    description: API DEV
-  - url: https://gwkong.pusri.co.id/digital-handbook-prod
-    description: API PROD
 
 components:
   securitySchemes:
@@ -358,6 +354,10 @@ paths:
             type: string
         - in: query
           name: types
+          schema:
+            type: string
+        - in: query
+          name: parent_uid
           schema:
             type: string
       responses:
