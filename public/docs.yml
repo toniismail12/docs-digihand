@@ -6,6 +6,10 @@ info:
 servers:
   - url: http://localhost:9001
     description: API Local
+  - url: https://gwkong.pusri.co.id/digital-handbook-dev
+    description: API DEV
+  - url: https://gwkong.pusri.co.id/digital-handbook-prod
+    description: API PROD
 
 components:
   securitySchemes:
