@@ -334,6 +334,10 @@ paths:
                   type: string
                 types:
                   type: string
+                format:
+                  type: string
+                is_private:
+                  type: string
       responses:
         "200":
           $ref: "#/components/responses/200"
@@ -361,6 +365,10 @@ paths:
           schema:
             type: string
         - in: query
+          name: is_private
+          schema:
+            type: integer
+        - in: query
           name: parent_uid
           schema:
             type: string
@@ -375,6 +383,71 @@ paths:
     delete:
       tags:
         - Files
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+  /type:
+    post:
+      tags:
+        - File Type
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                extension:
+                  type: string
+                entype:
+                  type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    get:
+      tags:
+        - File Type
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - in: query
+          name: extension
+          schema:
+            type: string
+        - in: query
+          name: entype
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    delete:
+      tags:
+        - File Type
       parameters:
         - in: query
           name: id
