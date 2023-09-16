@@ -1,15 +1,15 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: API Digital Handbook 2023
-  description: API Documentation for Digital Handbook 2023
+  title: API BE-SIKP 2023
+  description: API Documentation for BE-SIKP
 servers:
   - url: http://localhost:9001
     description: API Local
-  - url: https://gwkong.pusri.co.id/digital-handbook-dev
-    description: API DEV
-  - url: https://gwkong.pusri.co.id/digital-handbook-prod
-    description: API PROD
+  - url: https://gwkong.pusri.co.id/sikp-prod
+    description: API Prod
+  - url: https://gwkong.pusri.co.id/sikp-dev
+    description: API Dev
 
 components:
   securitySchemes:
@@ -32,63 +32,63 @@ components:
         type: integer
 
   responses:
-    "200":
-      description: OK
-    "400":
-      description: "Bad Request"
-    "401":
-      description: Unauthorized
+      '200':
+        description: OK
+      '400':
+        description: "Bad Request"
+      '401':
+        description: Unauthorized
 
 security:
   - bearerAuth: []
 
 paths:
   /login:
-    post:
-      tags:
-        - Authentication
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
-      responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+      post:
+        tags:
+          - Authentication
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  password:
+                    type: string
+        responses:
+          '200':
+            $ref: '#/components/responses/200'
+          '400':
+            $ref: '#/components/responses/400'
+          '401':
+            $ref: '#/components/responses/401'
 
   /auth-me:
     get:
       tags:
-        - Authentication
+        - Authentication   
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
-
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+            
   /logout:
     delete:
       tags:
-        - Authentication
+        - Authentication   
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
   /data:
     post:
@@ -104,77 +104,97 @@ paths:
                 data:
                   type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
   /users:
-    post:
-      tags:
-        - Users
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                username:
-                  type: string
-                password:
-                  type: string
-                id_role:
-                  type: integer
-      responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+      post:
+        tags:
+          - Users
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  username:
+                    type: string
+                  password:
+                    type: string
+                  id_role:
+                    type: integer
+        responses:
+          '200':
+            $ref: '#/components/responses/200'
+          '400':
+            $ref: '#/components/responses/400'
+          '401':
+            $ref: '#/components/responses/401'
 
+      get:
+        tags:
+          - Users   
+        parameters:
+          - $ref: '#/components/parameters/Page'
+          - $ref: '#/components/parameters/Limit'
+          - in: query
+            name: username
+            schema:
+              type: string
+          - in: query
+            name: name
+            schema:
+              type: string
+        responses:
+          '200':
+            $ref: '#/components/responses/200'
+          '400':
+            $ref: '#/components/responses/400'
+          '401':
+            $ref: '#/components/responses/401'
+      
+      delete:
+        tags:
+          - Users   
+        parameters:
+          - in: query
+            name: username
+            schema:
+              type: string
+        responses:
+          '200':
+            $ref: '#/components/responses/200'
+          '400':
+            $ref: '#/components/responses/400'
+          '401':
+            $ref: '#/components/responses/401'
+
+  /role:
     get:
       tags:
-        - Users
+        - Role
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
         - in: query
-          name: username
-          schema:
-            type: string
-        - in: query
-          name: name
+          name: role
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
-    delete:
-      tags:
-        - Users
-      parameters:
-        - in: query
-          name: username
-          schema:
-            type: string
-      responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
   /cors:
     post:
       tags:
@@ -189,30 +209,30 @@ paths:
                 domain:
                   type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
     get:
       tags:
         - Cors
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
         - in: query
           name: domain
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
     delete:
       tags:
@@ -223,55 +243,235 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+  
+  /bidang:
+    post:
+      tags:
+        - Bidang
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bidang:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
-  /role:
     get:
       tags:
-        - Role
+        - Bidang
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
         - in: query
-          name: role
+          name: bidang
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
+    delete:
+      tags:
+        - Bidang
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+  
+  /unit-kerja-pusri:
+    get:
+      tags:
+        - Unit Kerja Pusri
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: dept_title
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+  /bidang-unit-kerja:
+    post:
+      tags:
+        - Bidang & Unit Kerja
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_bidang:
+                  type: integer
+                id_unitkerja:
+                  type: string
+                unit_kerja:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+  
+    get:
+      tags:
+        - Bidang & Unit Kerja
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: id_bidang
+          schema:
+            type: string
+        - in: query
+          name: bidang
+          schema:
+            type: string
+        - in: query
+          name: unit_kerja
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+    delete:
+      tags:
+        - Bidang & Unit Kerja
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+  /status:
+    post:
+      tags:
+        - Status
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                desc_status:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+    get:
+      tags:
+        - Status
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: desc_status
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+    delete:
+      tags:
+        - Status
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
   /logs:
     get:
       tags:
         - Logs
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
         - in: query
           name: message
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
-  /upload-files:
+  /uploud-file:
     post:
       tags:
-        - Uploud
+        - Files
       requestBody:
         required: true
         content:
@@ -282,20 +482,16 @@ paths:
                 files:
                   type: string
                   format: binary
-                path:
-                  type: string
-                  # format: binary
       responses:
         "200":
           description: File uploaded successfully
-
   /read-file:
     get:
       tags:
-        - Read File
+        - Files
       parameters:
         - in: query
-          name: directory
+          name: nama_file
           schema:
             type: string
       responses:
@@ -305,11 +501,11 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
-
-  /files:
+  
+  /periode:
     post:
       tags:
-        - Files
+        - Periode
       parameters:
         - in: query
           name: id
@@ -322,84 +518,216 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                title:
                   type: string
-                alias_name:
+                start_date:
                   type: string
-                plant_code:
-                  type: string
-                parent_uid:
-                  type: string
-                path:
-                  type: string
-                types:
-                  type: string
-                format:
-                  type: string
-                is_private:
+                end_date:
                   type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
     get:
       tags:
-        - Files
+        - Periode
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
         - in: query
-          name: name
+          name: title
           schema:
             type: string
         - in: query
-          name: plant_code
+          name: start_date
           schema:
             type: string
         - in: query
-          name: types
-          schema:
-            type: string
-        - in: query
-          name: is_private
-          schema:
-            type: integer
-        - in: query
-          name: parent_uid
+          name: end_date
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
-
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
     delete:
       tags:
-        - Files
+        - Periode
       parameters:
         - in: query
           name: id
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
-  /type:
+  /jenis-register:
+    get:
+      tags:
+        - Jenis Register
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: jenis_register
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+  
+  /register:
     post:
       tags:
-        - File Type
+        - Register
+      parameters:
+        - in: query
+          name: id_register
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jenis_register:
+                  type: string
+                no_surat:
+                  type: string
+                tgl_surat:
+                  type: string
+                tingkat_pendidikan:
+                  type: string
+                nama_sekolah:
+                  type: string
+                alamat_sekolah:
+                  type: string
+                kota_sekolah:
+                  type: string
+                kodepos_sekolah:
+                  type: string
+                telp_sekolah:
+                  type: string
+                email_sekolah:
+                  type: string
+                fakultas:
+                  type: string
+                jurusan:
+                  type: string
+                id_status:
+                  type: integer
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+    get:
+      tags:
+        - Register
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: jenis_register
+          schema:
+            type: string
+        - in: query
+          name: no_surat
+          schema:
+            type: string
+        - in: query
+          name: tgl_surat
+          schema:
+            type: string
+        - in: query
+          name: tingkat_pendidikan
+          schema:
+            type: string
+        - in: query
+          name: nama_sekolah
+          schema:
+            type: string
+        - in: query
+          name: alamat_sekolah
+          schema:
+            type: string
+        - in: query
+          name: kota_sekolah
+          schema:
+            type: string
+        - in: query
+          name: kodepos_sekolah
+          schema:
+            type: string
+        - in: query
+          name: telp_sekolah
+          schema:
+            type: string
+        - in: query
+          name: email_sekolah
+          schema:
+            type: string
+        - in: query
+          name: fakultas
+          schema:
+            type: string
+        - in: query
+          name: jurusan
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+            
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+    delete:
+      tags:
+        - Register
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+  /peserta:
+    post:
+      tags:
+        - Peserta
       parameters:
         - in: query
           name: id
@@ -412,51 +740,210 @@ paths:
             schema:
               type: object
               properties:
-                extension:
+                id_register:
+                  type: integer
+                  format: uint
+                id_pembimbing:
+                  type: integer
+                  format: uint
+                id_bidang:
+                  type: integer
+                  format: uint
+                no_induk:
                   type: string
-                entype:
+                nama:
                   type: string
+                email:
+                  type: string
+                kontak:
+                  type: string
+                nilai:
+                  type: string
+                id_status:
+                  type: integer
+                  format: uint
+                id_periode:
+                  type: integer
+                  format: uint
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
     get:
       tags:
-        - File Type
+        - Peserta
       parameters:
-        - $ref: "#/components/parameters/Page"
-        - $ref: "#/components/parameters/Limit"
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+
         - in: query
-          name: extension
+          name: id_register
           schema:
             type: string
+
         - in: query
-          name: entype
+          name: id_pembimbing
           schema:
             type: string
+
+        - in: query
+          name: pembimbing
+          schema:
+            type: string
+
+        - in: query
+          name: id_bidang
+          schema:
+            type: string
+
+        - in: query
+          name: bidang
+          schema:
+            type: string
+
+        - in: query
+          name: id_periode
+          schema:
+            type: string
+
+        - in: query
+          name: no_induk
+          schema:
+            type: string
+
+        - in: query
+          name: nama
+          schema:
+            type: string
+
+        - in: query
+          name: email
+          schema:
+            type: string
+
+        - in: query
+          name: kontak
+          schema:
+            type: string
+
+        - in: query
+          name: start_date
+          schema:
+            type: string
+
+        - in: query
+          name: end_date
+          schema:
+            type: string
+
+        - in: query
+          name: nilai
+          schema:
+            type: string
+
+        - in: query
+          name: status
+          schema:
+            type: string
+
+        - in: query
+          name: id_status
+          schema:
+            type: string
+
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
 
     delete:
       tags:
-        - File Type
+        - Peserta
       parameters:
         - in: query
           name: id
           schema:
             type: string
       responses:
-        "200":
-          $ref: "#/components/responses/200"
-        "400":
-          $ref: "#/components/responses/400"
-        "401":
-          $ref: "#/components/responses/401"
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+  /lampiran:
+    post:
+      tags:
+        - Lampiran
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nama_lampiran:
+                  type: string
+                nama_file:
+                  type: string
+                uuid_parent:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+    get:
+      tags:
+        - Lampiran
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: nama_lampiran
+          schema:
+            type: string
+
+        - in: query
+          name: uuid_parent
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+
+    delete:
+      tags:
+        - Lampiran
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+  
