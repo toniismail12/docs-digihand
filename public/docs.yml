@@ -10,6 +10,8 @@ servers:
     description: API DEV
   - url: https://gwkong.pusri.co.id/digital-handbook-prod
     description: API PROD
+  - url: http://10.10.2.189:20047
+    description: IP
 
 components:
   securitySchemes:
@@ -130,6 +132,10 @@ paths:
                   type: string
                 id_role:
                   type: integer
+                departemen:
+                  type: string
+                departemen_id:
+                  type: string
       responses:
         "200":
           $ref: "#/components/responses/200"
@@ -460,3 +466,294 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+
+  /menu:
+    post:
+      tags:
+        - Menu
+      description: "category: menu, submenu, subsubmenu. parent_uuid diisi apabila category menu submenu dan subsubmenu. awali input path dan params dengan /"
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                path_name:
+                  type: string
+                path:
+                  type: string
+                params:
+                  type: string
+                category:
+                  type: string
+                icon:
+                  type: string
+                parent_uuid:
+                  type: string
+                
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    get:
+      tags:
+        - Menu
+      parameters:
+        - in: query
+          name: path_name
+          schema:
+            type: string
+        - in: query
+          name: path
+          schema:
+            type: string
+        - in: query
+          name: parent_uuid
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    delete:
+      tags:
+        - Menu
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    
+  /permission:
+    post:
+      tags:
+        - Permission
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_role:
+                  type: integer
+                id_menu:
+                  type: integer
+                
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    
+    get:
+      tags:
+        - Permission
+      parameters:
+        - in: query
+          name: role
+          schema:
+            type: string
+
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    delete:
+      tags:
+        - Permission
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+  
+  /catalyst-position:
+    post:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                top:
+                  type: string
+                left:
+                  type: string
+                tag_area:
+                  type: string
+                image_name:
+                  type: string
+                
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    get:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: tag_area
+          schema:
+            type: string
+
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    
+    delete:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+  /catalyst-information:
+    post:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uuid_position:
+                    type: string
+                  jenis:
+                    type: string
+                  tag_number:
+                    type: string
+                  tipe:
+                    type: string
+                  manufaktur:
+                    type: string
+                  sor:
+                    type: string
+                  volume:
+                    type: string
+                  satuan:
+                    type: string
+                  parameter_kinerja:
+                    type: string
+                  desain:
+                    type: number
+                  aktual:
+                    type: number
+                
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    get:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: uuid_position
+          schema:
+            type: string
+
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    delete:
+      tags:
+        - Catalyst
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
