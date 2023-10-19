@@ -911,6 +911,35 @@ paths:
           $ref: "#/components/responses/400"
         "401":
           $ref: "#/components/responses/401"
+    get:
+      tags:
+        - HE
+      parameters:
+        - in: query
+          name: uuid_position
+          schema:
+            type: string
+        - in: query
+          name: uuid
+          schema:
+            type: string
+        - in: query
+          name: item_number
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
     delete:
       tags:
         - HE
