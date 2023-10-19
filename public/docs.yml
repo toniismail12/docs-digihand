@@ -898,7 +898,7 @@ paths:
                     type: string
                   tube_number:
                     type: string
-                  od_number:
+                  od_tube:
                     type: string
                   tube_length:
                     type: string
