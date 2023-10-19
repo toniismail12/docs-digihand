@@ -631,9 +631,13 @@ paths:
                   type: string
                 left:
                   type: string
+                tag_number:
+                  type: string
                 tag_area:
                   type: string
                 image_name:
+                  type: string
+                category:
                   type: string
                 
       responses:
@@ -650,6 +654,18 @@ paths:
       parameters:
         - in: query
           name: tag_area
+          schema:
+            type: string
+        - in: query
+          name: uuid
+          schema:
+            type: string
+        - in: query
+          name: tag_number
+          schema:
+            type: string
+        - in: query
+          name: category
           schema:
             type: string
 
@@ -715,6 +731,10 @@ paths:
                     type: number
                   aktual:
                     type: number
+                  material_code:
+                    type: string
+                  category:
+                    type: string
                 
       responses:
         "200":
@@ -732,6 +752,18 @@ paths:
           name: uuid_position
           schema:
             type: string
+        - in: query
+          name: uuid
+          schema:
+            type: string
+        - in: query
+          name: tag_number
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
 
       responses:
         "200":
@@ -744,6 +776,144 @@ paths:
     delete:
       tags:
         - Catalyst
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+  /he-position:
+    post:
+      tags:
+        - HE
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                top:
+                  type: string
+                left:
+                  type: string
+                tag_area:
+                  type: string
+                item_number:
+                  type: string
+                image_name:
+                  type: string
+                category:
+                  type: string
+                
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    get:
+      tags:
+        - HE
+      parameters:
+        - in: query
+          name: tag_area
+          schema:
+            type: string
+        - in: query
+          name: uuid
+          schema:
+            type: string
+        - in: query
+          name: item_number
+          schema:
+            type: string
+        - in: query
+          name: category
+          schema:
+            type: string
+
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    delete:
+      tags:
+        - HE
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+  /he-information:
+    post:
+      tags:
+        - HE
+      parameters:
+        - in: query
+          name: uuid
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  uuid_position:
+                    type: string
+                  item_number:
+                    type: string
+                  type:
+                    type: string
+                  fluidaShell:
+                    type: string
+                  fluidaTube:
+                    type: string
+                  tube_number:
+                    type: string
+                  od_number:
+                    type: string
+                  tube_length:
+                    type: string
+                  category:
+                    type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+    delete:
+      tags:
+        - HE
       parameters:
         - in: query
           name: uuid
