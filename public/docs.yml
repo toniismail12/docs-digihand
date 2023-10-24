@@ -295,6 +295,27 @@ paths:
         "200":
           description: File uploaded successfully
 
+  /upload-dcs-files:
+    post:
+      tags:
+        - Uploud
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: string
+                  format: binary
+                path:
+                  type: string
+                  # format: binary
+      responses:
+        "200":
+          description: File uploaded successfully
+
   /read-file:
     get:
       tags:
@@ -946,6 +967,89 @@ paths:
       parameters:
         - in: query
           name: uuid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+
+  /dcs-file:
+    post:
+      tags:
+        - DCS Files
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                real_name:
+                  type: string
+                parent_uid:
+                  type: string
+                path:
+                  type: string
+                type:
+                  type: string
+                format:
+                  type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    get:
+      tags:
+        - DCS Files
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/Limit"
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: type
+          schema:
+            type: string
+        - in: query
+          name: path
+          schema:
+            type: string
+        - in: query
+          name: parent_uid
+          schema:
+            type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/200"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+
+    delete:
+      tags:
+        - DCS Files
+      parameters:
+        - in: query
+          name: id
           schema:
             type: string
       responses:
