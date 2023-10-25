@@ -277,7 +277,7 @@ paths:
   /upload-files:
     post:
       tags:
-        - Uploud
+        - Upload
       requestBody:
         required: true
         content:
@@ -295,10 +295,10 @@ paths:
         "200":
           description: File uploaded successfully
 
-  /upload-dcs-files:
+  /upload-dcs-file:
     post:
       tags:
-        - Uploud
+        - Upload
       requestBody:
         required: true
         content:
